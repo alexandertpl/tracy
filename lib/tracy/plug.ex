@@ -25,7 +25,7 @@ defmodule Tracy.Plug do
       |> Enum.map(fn(k) -> {k, Map.get(conn, k)} end)
       |> Enum.into(%{})
       |> Map.put(:request_uri, url(conn))
-      |> Map.put(:peer, peer(conn))
+      #|> Map.put(:peer, peer(conn))
     # add all request headers
     Enum.reduce(conn.req_headers || [], env,
       fn({header, value}, env) ->
@@ -38,9 +38,9 @@ defmodule Tracy.Plug do
     "#{scheme}://#{host}:#{port}#{conn.request_path}"
   end
 
-  defp peer(%Plug.Conn{peer: {host, port}}) do
-    "#{:inet_parse.ntoa host}:#{port}"
-  end
+  #defp peer(%Plug.Conn{peer: {host, port}}) do
+  #  "#{:inet_parse.ntoa host}:#{port}"
+  #end
 
   defp make_title(metadata) do
     Map.put(metadata, :title, "#{String.upcase(metadata.method)} #{metadata.request_path}")
